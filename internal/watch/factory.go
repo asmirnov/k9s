@@ -21,7 +21,7 @@ import (
 
 const (
 	defaultResync   = 10 * time.Minute
-	defaultWaitTime = 250 * time.Millisecond
+	defaultWaitTime = 5000 * time.Millisecond
 )
 
 // Factory tracks various resource informers.
