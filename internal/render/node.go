@@ -35,7 +35,10 @@ func (Node) Header(string) model1.Header {
 	return model1.Header{
 		model1.HeaderColumn{Name: "NAME"},
 		model1.HeaderColumn{Name: "STATUS"},
-		model1.HeaderColumn{Name: "ROLE"},
+		model1.HeaderColumn{Name: "TYPE"},
+		model1.HeaderColumn{Name: "ZONE"},
+		model1.HeaderColumn{Name: "API", Wide: true},
+		model1.HeaderColumn{Name: "ROLE", Wide: true},
 		model1.HeaderColumn{Name: "ARCH", Wide: true},
 		model1.HeaderColumn{Name: "TAINTS"},
 		model1.HeaderColumn{Name: "VERSION"},
@@ -92,6 +95,9 @@ func (n Node) Render(o interface{}, ns string, r *model1.Row) error {
 	r.Fields = model1.Fields{
 		no.Name,
 		join(statuses, ","),
+		no.Labels["node.kubernetes.io/instance-type"],
+		no.Labels["topology.kubernetes.io/zone"],
+		no.Spec.ProviderID[strings.LastIndex(no.Spec.ProviderID, "/")+1:],
 		join(roles, ","),
 		no.Status.NodeInfo.Architecture,
 		strconv.Itoa(len(no.Spec.Taints)),
