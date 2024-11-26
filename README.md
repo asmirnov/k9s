@@ -115,7 +115,7 @@ Binaries for Linux, Windows and Mac are available as tarballs in the [release pa
 * On Ubuntu
 
   ```shell
-  wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_linux_amd64.deb && apt install ./k9s_linux_amd64.deb && rm k9s_linux_amd64.deb
+  wget https://github.com/derailed/k9s/releases/download/v0.32.7/k9s_linux_amd64.deb && apt install ./k9s_linux_amd64.deb && rm k9s_linux_amd64.deb
   ```
 
 * Via [Winget](https://github.com/microsoft/winget-cli) for Windows
@@ -171,7 +171,7 @@ Binaries for Linux, Windows and Mac are available as tarballs in the [release pa
 
 ## Building From Source
 
- K9s is currently using GO v1.22.X or above.
+ K9s is currently using GO v1.23.X or above.
  In order to build K9s from source you must:
 
  1. Clone the repo
@@ -563,6 +563,13 @@ In order to surface hotkeys globally please follow these steps:
 
 ---
 
+## Port Forwarding over websockets
+
+K9s follows `kubectl` feature flag environment variables to enable/disable port-forwarding over websockets. (default enabled in >1.30)
+To disable Websocket support, set `KUBECTL_PORT_FORWARD_WEBSOCKETS=false`
+
+---
+
 ## FastForwards
 
 As of v0.25.0, you can leverage the `FastForwards` feature to tell K9s how to default port-forwards. In situations where you are dealing with multiple containers or containers exposing multiple ports, it can be cumbersome to specify the desired port-forward from the dialog as in most cases, you already know which container/port tuple you desire. For these use cases, you can now annotate your manifests with the following annotations:
@@ -662,7 +669,7 @@ A plugin is defined as follows:
 * Background specifies whether or not the command runs in the background
 * Args specifies the various arguments that should apply to the command above
 * OverwriteOutput boolean option allows plugin developers to provide custom messages on plugin stdout execution. See example in [#2644](https://github.com/derailed/k9s/pull/2644)
-* Dangerous boolean option enables disabling the plugin when read-only mode is set. See [#2604](https://github.com/derailed/k9s/issues/2604) 
+* Dangerous boolean option enables disabling the plugin when read-only mode is set. See [#2604](https://github.com/derailed/k9s/issues/2604)
 
 K9s does provide additional environment variables for you to customize your plugins arguments. Currently, the available environment variables are as follows:
 
@@ -694,9 +701,9 @@ plugins:
   fred:
     shortCut: Ctrl-L
     override: false
-    overwriteOutput: false 
+    overwriteOutput: false
     confirm: false
-    dangerous: false 
+    dangerous: false
     description: Pod logs
     scopes:
     - pods
